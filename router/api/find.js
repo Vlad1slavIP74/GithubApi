@@ -3,14 +3,15 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const request = require('superagent')
 const mydb = require('../../models/accounts');
+const axios = require('axios')
 
-const accesToken = '8171fbda7b7b9342296fb65283ff1306fe01c7a8'
+const accesToken = 'c38f8402d57b592e5aa22169e73de8efd8b87295'
 
 // для ауторизації
 let githubOAuth = require('github-oauth')({
-  githubClient: '39e671da335ecd0ea0e0',
-  githubSecret: '00df5f106528648f9158a3b77f1a10bd1b96073c',
-  baseURL: 'http://localhost:3001',
+  githubClient: 'abbab54606f9d505c950',
+  githubSecret: 'fb5e44e1426d2e5cd68a4d9da951c9b2cc5b823f',
+  baseURL: 'http://localhost',
   loginURI: '/auth/github',
   callbackURI: '/auth/github/callback'
 })
@@ -19,12 +20,12 @@ let githubOAuth = require('github-oauth')({
 
 // Router to get top 10 users
 router.get('/test', (req, res) => {
-  // setTimeout(function() {
-  //   request
-  //   .get('http://localhost:3001/api/users/test')
-  //    .set('Authorization', 'token ' + accesToken)
-  //   .then(() => console.log('I was called from setTimeout'))
-  // }, 5000);
+   setTimeout(function() {
+     request
+     .get('http://localhost:3001/api/users/test')
+      .set('Authorization', 'token ' + accesToken)
+     .then(() => console.log('I was called from setTimeout'))
+   }, 60*60*1000);
 
   request
   .get('https://api.github.com/search/users?q=location:Kyiv&sort=followers')
@@ -88,8 +89,7 @@ router.get('/test', (req, res) => {
 
 
 
-
-// For OAuth Authorization
+//  For OAuth Authorization
 router.get('/auth/github', function(req, res){
   console.log("started oauth");
   return githubOAuth.login(req, res);

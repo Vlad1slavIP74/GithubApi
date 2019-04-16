@@ -1,3 +1,4 @@
+
 {
   search(query: "location:'Kyiv' followers:>1000", type: USER, first: 10) {
     edges {
@@ -12,3 +13,4 @@
     }
   }
 }
+
